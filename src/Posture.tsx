@@ -30,6 +30,7 @@ export const Posture: React.FC<PostureProps> = ({ r }) => {
                         strokeLinejoin="round"
                     />
                     <path d="M 10,83 H 90"/>
+                    <path d="M 34,65 V 80 m -5,0 h 10"/>
                     <path d="
                         M 47,49 h 30
                         m -7,0 l -2.6,-12
