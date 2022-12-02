@@ -21,12 +21,12 @@ export const usePostureDetection = () => {
             canvasRef.current.width = webcam.width;
             canvasRef.current.height = webcam.height;
         }
-        const canvasCtx = canvasRef.current?.getContext("2d");
+        const canvasCtx = canvasRef.current?.getContext("2d") || null;
         
-        if (model && canvasCtx) startLoop(model, canvasCtx).catch(console.error);
+        if (model) startLoop(model, canvasCtx).catch(console.error);
     }, [model]);
     
-    const startLoop = async (model: TMPose.CustomPoseNet, ctx: CanvasRenderingContext2D) => {
+    const startLoop = async (model: TMPose.CustomPoseNet, ctx: CanvasRenderingContext2D | null) => {
         await webcam.setup();
         await webcam.play();
         console.log("Start loop");
@@ -40,16 +40,16 @@ export const usePostureDetection = () => {
         window.requestAnimationFrame(loop);
     };
     
-    const predict = async (model: TMPose.CustomPoseNet, ctx: CanvasRenderingContext2D) => {
+    const predict = async (model: TMPose.CustomPoseNet, ctx: CanvasRenderingContext2D | null) => {
         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
         const prediction = await model.predict(posenetOutput);
         // console.log(prediction[1].probability)
         // setGoodPose(prediction[0].probability > prediction[1].probability);
         setPoseRate(prediction[1].probability)
         
-        ctx.drawImage(webcam.canvas, 0, 0);
+        ctx?.drawImage(webcam.canvas, 0, 0);
         // ctx.clearRect(0, 0, 400, 400)
-        if (pose) {
+        if (ctx && pose) {
             TMPose.drawKeypoints(pose.keypoints, 0.1, ctx);
             // TMPose.drawSkeleton(pose.keypoints, 0.1, ctx);
         }

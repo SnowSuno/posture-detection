@@ -19,22 +19,22 @@ function App() {
     // }, [poseRate])
     
     return (
-        <div className="App">
-            <canvas
-                ref={canvasRef}
-                style={{
-                    borderRadius: 10,
-                    overflow: "hidden",
-                }}
-            />
-            <br/>
-            <h3>
-                {loading
-                    ? "loading"
-                    : `prediction : ${poseRate.toFixed(2)}`
-                }
-            </h3>
-            <Posture r={r}/>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%"}}>
+            {/*<canvas*/}
+            {/*    ref={canvasRef}*/}
+            {/*    style={{*/}
+            {/*        borderRadius: 10,*/}
+            {/*        overflow: "hidden",*/}
+            {/*    }}*/}
+            {/*/>*/}
+            {/*<br/>*/}
+            {/*<h3>*/}
+            {/*    {loading*/}
+            {/*        ? "loading"*/}
+            {/*        : `prediction : ${poseRate.toFixed(2)}`*/}
+            {/*    }*/}
+            {/*</h3>*/}
+            <Posture size="30vw" r={r}/>
         </div>
     );
 }
