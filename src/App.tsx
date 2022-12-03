@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import reactLogo from "./assets/react.svg";
 // import "./App.css";
 // import { usePostureDetection } from "./hooks/usePostureDetection";
@@ -13,7 +14,7 @@ import { usePostureDetection } from "./hooks/usePostureDetection";
 function App() {
     const {
         // canvasRef, loading,
-        poseRate
+        poseRate,
     } = usePostureDetection();
     
     const motionPoseRate = useMotionValue(0);
@@ -27,9 +28,9 @@ function App() {
     // }, [poseRate])
     const notify = (msg: string) => {
         const notification = new Notification("supose", {
-            body: msg
-        })
-    }
+            body: msg,
+        });
+    };
     
     // useEffect(() => {
     //     worker.postMessage("hello");
@@ -46,7 +47,17 @@ function App() {
     const loading = false;
     
     return (
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center", height: "100%"}}>
+        <motion.div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            backgroundColor: useTransform(
+                r,
+                [0, 1],
+                ["#D4DAE2", "#f36f67"],
+            ),
+        }}>
             {/*<canvas*/}
             {/*    ref={canvasRef}*/}
             {/*    style={{*/}
@@ -55,14 +66,14 @@ function App() {
             {/*    }}*/}
             {/*/>*/}
             <br/>
-            <h3 style={{width: 400}}>
+            <h3 style={{ width: 400 }}>
                 {loading
                     ? "loading"
                     : `prediction : ${poseRate.toFixed(2)}`
                 }
             </h3>
             <Posture size="30vw" r={r}/>
-        </div>
+        </motion.div>
     );
 }
 

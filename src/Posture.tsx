@@ -42,7 +42,7 @@ export const Posture: React.FC<PostureProps> = ({ r, size, ...props }) => (
                        M 47,49 h 30
                         m -7,0 l -2.6,-12
                     " {...animation}/>
-        <g fill="rgba(255, 255, 255, 0.8)">
+        <g fill="rgba(255, 255, 255, 0.7)">
             <motion.circle
                 cx={useTransform(r, r => 32.5 + 15 * r)}
                 cy={useTransform(r, r => 23.5 + 2 * r)}

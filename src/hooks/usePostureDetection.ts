@@ -11,7 +11,7 @@ export const usePostureDetection = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [poseRate, setPoseRate] = useState(0);
     // const poseRate = useMotionValue(0);
-    const { model, loading } = useModel("./model");
+    const { model } = useModel("./model");
     
     
     const webcam = new TMPose.Webcam(undefined, undefined, true);
@@ -103,7 +103,7 @@ export const usePostureDetection = () => {
     // };
     
     
-    return { canvasRef, loading, poseRate };
+    return { canvasRef, poseRate };
 };
 
 const loop = async () => {
