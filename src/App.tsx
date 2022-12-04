@@ -72,7 +72,7 @@ function App() {
                     : `prediction : ${poseRate.toFixed(2)}`
                 }
             </h3>
-            <Posture size="30vw" r={r}/>
+            {/*<Posture size="30vw" r={r}/>*/}
         </motion.div>
     );
 }
