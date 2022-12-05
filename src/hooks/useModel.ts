@@ -10,5 +10,5 @@ export const useModel = (url: string) => {
             .then(setModel);
     }, []);
     
-    return { model, loading: !model };
+    return { model };
 };
