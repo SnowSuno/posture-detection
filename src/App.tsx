@@ -1,50 +1,44 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import reactLogo from "./assets/react.svg";
-// import "./App.css";
-// import { usePostureDetection } from "./hooks/usePostureDetection";
+import React, { useEffect } from "react";
+
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+import { usePose } from "./hooks/usePose";
+import { useTimer } from "./hooks/useTimer";
 import { Posture } from "./Posture";
-import { useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { usePrediction } from "./hooks/usePrediction";
-import { usePostureDetection } from "./hooks/usePostureDetection";
 
-// import Worker from "./utils/model.worker?worker";
 
-// const worker = new Worker();
 function App() {
-    const {
-        // canvasRef, loading,
-        poseRate,
-    } = usePostureDetection();
+    const { prediction } = usePose();
+    const { timer, setTimer } = useTimer();
     
     const motionPoseRate = useMotionValue(0);
     const r = useSpring(motionPoseRate, { stiffness: 150, damping: 15 });
     
-    useEffect(() => motionPoseRate.set(poseRate), [poseRate]);
-    // useEffect(() => {
-    //     // if (counter.current % 10 === 0)
-    //         r.set(poseRate);
-    //     // counter.current++;
-    // }, [poseRate])
-    const notify = (msg: string) => {
-        const notification = new Notification("supose", {
-            body: msg,
+    const request =() => {
+        Notification.requestPermission();
+    }
+    
+    useEffect(() => {
+        if (prediction) motionPoseRate.set(prediction[1].probability)
+    }, [prediction]);
+    
+    
+    useEffect(() => {
+        console.log(timer)
+        if (timer > 5) {
+            setTimer(0);
+            if (prediction && prediction[1]?.probability > 0.5) {
+                notify();
+            }
+        }
+    }, [timer])
+    
+    const notify = () => {
+        new Notification("Supose", {
+            body: "Hurry up!",
+            icon: "icon.svg",
         });
     };
-    
-    // useEffect(() => {
-    //     worker.postMessage("hello");
-    //
-    //     worker.onmessage = (e) => {
-    //         console.log(e.data);
-    //         // notify(e.data);
-    //     }
-    // }, [])
-    
-    // useEffect(() => {
-    //     notify(`hurry ${poseRate > 0.5 ? "up" : "down"}`)
-    // }, [poseRate])
-    const loading = false;
     
     return (
         <motion.div style={{
@@ -65,14 +59,11 @@ function App() {
             {/*        overflow: "hidden",*/}
             {/*    }}*/}
             {/*/>*/}
-            <br/>
-            <h3 style={{ width: 400 }}>
-                {loading
-                    ? "loading"
-                    : `prediction : ${poseRate.toFixed(2)}`
-                }
-            </h3>
-            {/*<Posture size="30vw" r={r}/>*/}
+            {/*<h3 style={{ width: 400 }}>*/}
+            {/*    {prediction && prediction[1].probability.toFixed(2)}*/}
+            {/*</h3>*/}
+            <Posture size="50vh" r={r}/>
+            {/*<button onClick={request}>알림</button>*/}
         </motion.div>
     );
 }
