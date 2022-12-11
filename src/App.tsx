@@ -18,20 +18,20 @@ function App() {
         Notification.requestPermission();
     }
     
-    useEffect(() => {
-        if (prediction) motionPoseRate.set(prediction[1].probability)
-    }, [prediction]);
+    // useEffect(() => {
+    //     if (prediction) motionPoseRate.set(prediction[1].probability)
+    // }, [prediction]);
     
     
-    useEffect(() => {
-        console.log(timer)
-        if (timer > 5) {
-            setTimer(0);
-            if (prediction && prediction[1]?.probability > 0.5) {
-                notify();
-            }
-        }
-    }, [timer])
+    // useEffect(() => {
+    //     console.log(timer)
+    //     if (timer > 5) {
+    //         setTimer(0);
+    //         if (prediction && prediction[1]?.probability > 0.5) {
+    //             notify();
+    //         }
+    //     }
+    // }, [timer])
     
     const notify = () => {
         new Notification("Supose", {

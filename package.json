@@ -13,6 +13,7 @@
     "@teachablemachine/pose": "^0.8.6",
     "@tensorflow-models/pose-detection": "^2.0.0",
     "@tensorflow/tfjs": "^4.1.0",
+    "@tensorflow/tfjs-core": "^4.1.0",
     "framer-motion": "^7.6.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

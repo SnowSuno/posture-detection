@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import * as TMPose from "@teachablemachine/pose";
+import * as tf from "@tensorflow/tfjs";
 
 export const useModel = (url: string) => {
-    const [model, setModel] = useState<TMPose.CustomPoseNet | null>(null);
+    const [model, setModel] = useState<tf.LayersModel | null>(null);
     
     useEffect(() => {
-        TMPose
-            .load(`${url}/model.json`, `${url}/metadata.json`)
-            .then(setModel);
-    }, []);
+        tf.loadLayersModel(url).then(setModel);
+    }, [setModel]);
     
     return { model };
 };
